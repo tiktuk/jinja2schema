@@ -375,7 +375,7 @@ def visit_call(ast, ctx, macroses=None, config=default_config):
                                                    config=config)
                 struct = merge(struct, arg_struct)
             return List(Number()), struct
-        elif ast.node.name == 'lipsum':
+        elif ast.node.name in ('lipsum', 'lookup'):
             ctx.meet(Scalar(), ast)
             struct = Dictionary()
             # probable TODO: set possible types for args and kwargs
@@ -434,7 +434,7 @@ def visit_filter(ast, ctx, macroses=None, config=default_config):
     if ast.name in ('abs', 'striptags', 'capitalize', 'center', 'escape', 'filesizeformat',
                     'float', 'forceescape', 'format', 'indent', 'int', 'replace', 'round',
                     'safe', 'string', 'striptags', 'title', 'trim', 'truncate', 'upper',
-                    'urlencode', 'urlize', 'wordcount', 'wordwrap', 'e', 'regex_replace', 'match', 'quote'):
+                    'urlencode', 'urlize', 'wordcount', 'wordwrap', 'e', 'regex_replace', 'match', 'quote', 'password_hash'):
         ctx.meet(Scalar(), ast)
         if ast.name in ('abs', 'round'):
             node_struct = Number.from_ast(ast.node, order_nr=config.ORDER_OBJECT.get_next())
@@ -444,7 +444,7 @@ def visit_filter(ast, ctx, macroses=None, config=default_config):
             return_struct_cls = Number
         elif ast.name in ('striptags', 'capitalize', 'center', 'escape', 'forceescape', 'format', 'indent',
                           'replace', 'safe', 'title', 'trim', 'truncate', 'upper', 'urlencode',
-                          'urlize', 'wordwrap', 'e', 'regex_replace', 'match', 'quote'):
+                          'urlize', 'wordwrap', 'e', 'regex_replace', 'match', 'quote', 'password_hash'):
             node_struct = String.from_ast(ast.node, order_nr=config.ORDER_OBJECT.get_next())
             return_struct_cls = String
         elif ast.name == 'filesizeformat':
