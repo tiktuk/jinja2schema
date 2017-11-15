@@ -93,7 +93,7 @@ class JSONSchemaDraft4Encoder(object):
             rv.update({
                 'type': 'object',
                 'properties': dict((k, self.encode(v)) for k, v in var.iteritems()),
-                'required': [k for k, v in var.iteritems() if v.required],
+                # 'required': [k for k, v in var.iteritems() if v.required],
             })
         elif isinstance(var, List):
             rv.update({
