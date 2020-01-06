@@ -17,6 +17,7 @@ from ..config import default_config
 from .. import _compat
 from .util import visit_many
 
+ANSIBLE_TDH_FILTERS = ('pbx_quote',)
 ANSIBLE_FILTERS = ('comment', 'shuffle', 'splitext', 'basename', 'random', 'to_json', 'to_uuid', 'password_hash', 'failed', 'combine', 'skip', 'expanduser', 'failure', 'regex_replace', 'from_yaml', 'success', 'skipped', 'to_nice_yaml', 'win_dirname', 'from_json', 'mandatory', 'win_splitdrive', 'regex_escape', 'to_datetime', 'b64encode', 'dirname', 'extract', 'type_debug', 'bool', 'to_nice_json', 'relpath', 'realpath', 'win_basename', 'hash', 'quote', 'to_yaml', 'regex_search', 'b64decode', 'change', 'md5', 'sha1', 'succeeded', 'regex_findall', 'checksum', 'changed', 'ternary', 'fileglob', 'groupby', 'hwaddr', 'macaddr', 'ipsubnet', 'ipwrap', 'ipv6', 'ip4_hex', 'nthhost', 'ipaddr', 'slaac', 'ipv4', 'json_query', 'human_readable', 'symmetric_difference', 'permutations', 'zip_longest', 'combinations', 'difference', 'unique', 'log', 'zip', 'min', 'union', 'root', 'intersect', 'max', 'pow', 'human_to_bytes', 'lower',)
 ANSIBLE_TESTS = ('regex', 'failed', 'search', 'skipped', 'succeeded', 'version_compare', 'changed', 'match', 'regex', 'failed', 'search', 'skipped', 'succeeded', 'version_compare', 'changed', 'match', 'regex', 'failed', 'search', 'skipped', 'succeeded', 'version_compare', 'changed', 'match',)
 
@@ -436,7 +437,7 @@ def visit_filter(ast, ctx, macroses=None, config=default_config):
     if ast.name in ('abs', 'striptags', 'capitalize', 'center', 'escape', 'filesizeformat',
                     'float', 'forceescape', 'format', 'indent', 'int', 'replace', 'round',
                     'safe', 'string', 'striptags', 'title', 'trim', 'truncate', 'upper',
-                    'urlencode', 'urlize', 'wordcount', 'wordwrap', 'e') + ANSIBLE_FILTERS + ANSIBLE_TESTS:
+                    'urlencode', 'urlize', 'wordcount', 'wordwrap', 'e') + ANSIBLE_FILTERS + ANSIBLE_TESTS + ANSIBLE_TDH_FILTERS:
         ctx.meet(Scalar(), ast)
         if ast.name in ('abs', 'round'):
             node_struct = Number.from_ast(ast.node, order_nr=config.ORDER_OBJECT.get_next())
