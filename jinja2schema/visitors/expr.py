@@ -378,7 +378,7 @@ def visit_call(ast, ctx, macroses=None, config=default_config):
                                                    config=config)
                 struct = merge(struct, arg_struct)
             return List(Number()), struct
-        elif ast.node.name in ('lipsum', 'lookup'):
+        elif ast.node.name in ('lipsum', 'lookup', 'q', 'query'):
             ctx.meet(Scalar(), ast)
             struct = Dictionary()
             # probable TODO: set possible types for args and kwargs
